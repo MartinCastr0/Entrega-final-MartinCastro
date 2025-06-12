@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Mi perfil</h2>
+<p><strong>Usuario:</strong> {{ user.username }}</p>
+<p><strong>Email:</strong> {{ user.email }}</p>
+<p><strong>Biografía:</strong> {{ user.userprofile.bio }}</p>
+<p><strong>Fecha de nacimiento:</strong> {{ user.userprofile.birthdate }}</p>
+<a href="{% url 'profile_edit' %}">Editar perfil</a>
+{% endblock %}

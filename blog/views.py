@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Autor, Categoria, Entrada
 from .forms import AutorForm, CategoriaForm, EntradaForm, BuscarEntradaForm
 
@@ -45,3 +45,61 @@ def buscar_entrada(request):
     else:
         form = BuscarEntradaForm()
     return render(request, 'blog/buscar_entrada.html', {'form': form, 'entradas': entradas})
+
+# === VISTAS CRUD para pages (Entrada) ===
+
+def pages_list(request):
+    pages = Entrada.objects.all()
+    return render(request, 'blog/pages/pages_list.html', {'pages': pages})
+
+def page_detail(request, pk):
+    page = get_object_or_404(Entrada, pk=pk)
+    return render(request, 'blog/pages/page_detail.html', {'page': page})
+
+def page_create(request):
+    if request.method == 'POST':
+        form = EntradaForm(request.POST)
+        if form.is_valid():
+            page = form.save()
+            return redirect('page_detail', pk=page.pk)
+    else:
+        form = EntradaForm()
+    return render(request, 'blog/pages/page_form.html', {'form': form, 'page': None})
+
+def page_update(request, pk):
+    page = get_object_or_404(Entrada, pk=pk)
+    if request.method == 'POST':
+        form = EntradaForm(request.POST, instance=page)
+        if form.is_valid():
+            form.save()
+            return redirect('page_detail', pk=page.pk)
+    else:
+        form = EntradaForm(instance=page)
+    return render(request, 'blog/pages/page_form.html', {'form': form, 'page': page})
+
+def page_delete(request, pk):
+    page = get_object_or_404(Entrada, pk=pk)
+    if request.method == 'POST':
+        page.delete()
+        return redirect('pages_list')
+    return render(request, 'blog/pages/page_confirm_delete.html', {'page': page})
+
+# === VISTAS EXTRA PARA ENTRADAS ===
+
+def editar_entrada(request, pk):
+    entrada = get_object_or_404(Entrada, pk=pk)
+    if request.method == 'POST':
+        form = EntradaForm(request.POST, instance=entrada)
+        if form.is_valid():
+            form.save()
+            return redirect('pages_list')
+    else:
+        form = EntradaForm(instance=entrada)
+    return render(request, 'blog/crear_entrada.html', {'form': form, 'entrada': entrada})
+
+def borrar_entrada(request, pk):
+    entrada = get_object_or_404(Entrada, pk=pk)
+    if request.method == 'POST':
+        entrada.delete()
+        return redirect('pages_list')
+    return render(request, 'blog/pages/page_confirm_delete.html', {'page': entrada})

@@ -1,4 +1,4 @@
-<!-- templates/base.html -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,11 +7,17 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+    <header>
+        <h1>Mi Blog</h1>
+        <p>Bienvenido a mi blog personal</p>
+        <img src="{% static 'img/perfil1.png' %}" alt="Logo">
+    </header>
+
     <nav>
         <ul>
             <li><a href="{% url 'home' %}">Home</a></li>
             <li><a href="{% url 'about' %}">Acerca de mí</a></li>
-            <li><a href="{% url 'pages_list' %}">Entradas</a></li>
+           <!-- <li><a href="{% url 'pages_list' %}">Entradas</a></li> -->
             {% if user.is_authenticated %}
                 <li><a href="{% url 'profile' %}">Perfil</a></li>
                 <li><a href="{% url 'messenger:inbox' %}">Messenger</a></li>

@@ -1,14 +1,14 @@
 from django.db import models
 
-class Autor(models.Model):
+class Categoria(models.Model):
     nombre = models.CharField(max_length=100)
-    email = models.EmailField()
-
+    
     def __str__(self):
         return self.nombre
 
-class Categoria(models.Model):
+class Autor(models.Model):
     nombre = models.CharField(max_length=100)
+    email = models.EmailField(default="test@email.com")
 
     def __str__(self):
         return self.nombre
@@ -18,7 +18,7 @@ class Entrada(models.Model):
     contenido = models.TextField()
     autor = models.ForeignKey(Autor, on_delete=models.CASCADE)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-    fecha = models.DateTimeField(auto_now_add=True)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.titulo
