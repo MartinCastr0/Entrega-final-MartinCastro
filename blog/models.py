@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100)
@@ -36,7 +37,6 @@ class Torneo(models.Model):
     jugadores = models.ManyToManyField(Jugador, blank=True)
     ganador = models.ForeignKey(Pareja, on_delete=models.SET_NULL, null=True, blank=True, related_name='torneos_ganados')
     imagen = models.ImageField(upload_to='torneos/', blank=True, null=True)
-
     fecha_creacion = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def __str__(self):
@@ -44,7 +44,8 @@ class Torneo(models.Model):
 
 class Entrada(models.Model):
     titulo = models.CharField(max_length=200)
-    contenido = models.TextField()
+    imagen = models.ImageField(upload_to='entradas/', blank=True, null=True)
+    contenido = RichTextField()
     autor = models.ForeignKey(Autor, on_delete=models.CASCADE)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     fecha_creacion = models.DateTimeField(auto_now_add=True)

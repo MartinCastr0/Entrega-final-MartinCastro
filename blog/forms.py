@@ -1,33 +1,35 @@
 from django import forms
 from .models import Autor, Categoria, Entrada, Jugador, Torneo
+from ckeditor.widgets import CKEditorWidget
+
 
 class AutorForm(forms.ModelForm):
     class Meta:
         model = Autor
-        fields = '__all__'
+        fields = ['nombre', 'email']
 
 class CategoriaForm(forms.ModelForm):
     class Meta:
         model = Categoria
-        fields = '__all__'
+        fields = ['nombre']
 
 class EntradaForm(forms.ModelForm):
     class Meta:
         model = Entrada
-        fields = '__all__'
+        fields = ['titulo', 'imagen', 'contenido', 'autor', 'categoria', 'torneo']
+        widgets = {
+            'contenido': CKEditorWidget(),
+        }
 
 class BuscarEntradaForm(forms.Form):
-    titulo = forms.CharField(label='Título', max_length=200, required=False)
+    titulo = forms.CharField(max_length=200, required=False, label="Título")
 
 class JugadorForm(forms.ModelForm):
     class Meta:
         model = Jugador
-        fields = '__all__'
+        fields = ['nombre', 'ranking', 'club', 'foto']
 
 class TorneoForm(forms.ModelForm):
     class Meta:
         model = Torneo
-        fields = '__all__'
-        widgets = {
-            'fecha': forms.DateInput(attrs={'type': 'date'}),
-        }
+        fields = ['nombre', 'fecha', 'lugar', 'jugadores', 'ganador', 'imagen']

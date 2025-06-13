@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'blog',       # tu app principal
     'messenger',  # si tienes esta app
     'accounts',   # si tienes esta app
+    'ckeditor',
 ]
 
 MIDDLEWARE = [

@@ -3,8 +3,9 @@
 <h1>
     {% if page %}Editar página{% else %}Crear nueva página{% endif %}
 </h1>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    {{ form.media }}  
     {{ form.as_p }}
     <button type="submit">Guardar</button>
 </form>

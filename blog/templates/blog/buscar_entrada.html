@@ -2,7 +2,8 @@
 {% block title %}Buscar Entrada{% endblock %}
 {% block content %}
 <h2>Buscar Entrada</h2>
-<form method="post">{% csrf_token %}
+<form method="post">
+  {% csrf_token %}
   {{ form.as_p }}
   <button type="submit">Buscar</button>
 </form>
