@@ -1,35 +1,43 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Mi Blog{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
-<body>
-    <header>
-        <h1>Mi Blog</h1>
-        <p>Bienvenido a mi blog personal</p>
-        <img src="{% static 'img/perfil1.png' %}" alt="Logo">
-    </header>
-
-    <nav>
-        <ul>
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'about' %}">Acerca de mí</a></li>
-            <li><a href="{% url 'pages_list' %}">Entradas</a></li>
-            {% if user.is_authenticated %}
-                <li><a href="{% url 'profile' %}">Perfil</a></li>
-                <li><a href="{% url 'messenger:inbox' %}">Messenger</a></li>
-                <li><a href="{% url 'logout' %}">Logout</a></li>
-            {% else %}
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'signup' %}">Signup</a></li>
-            {% endif %}
-        </ul>
-    </nav>
-    <main>
-        {% block content %}{% endblock %}
-    </main>
-</body>
-</html>
+{% block title %}Bienvenido a la Comunidad de Pádel{% endblock %}
+{% block content %}
+<div class="home-dark-container">
+    <h1>Bienvenido a la Comunidad de Pádel</h1>
+    <p class="home-subtitle">¡Haz click en lo que quieras acceder!</p>
+    <div class="padel-sections">
+        <a href="{% url 'torneos_list' %}" class="padel-card">
+            <div class="icon-circle">
+                <!-- Trophy SVG -->
+                <svg width="38" height="38" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="#46e891" stroke-width="2"/><path d="M10 12h12v4a6 6 0 01-12 0v-4z" stroke="#46e891" stroke-width="2" fill="none"/><path d="M8 9v3a8 8 0 008 8 8 8 0 008-8V9" stroke="#46e891" stroke-width="2" fill="none"/></svg>
+            </div>
+            <h2>Torneos</h2>
+            <p>Consulta torneos pasados y próximos, resultados y ganadores.</p>
+        </a>
+        <a href="{% url 'jugadores_list' %}" class="padel-card">
+            <div class="icon-circle">
+                <!-- User SVG -->
+                <svg width="38" height="38" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="12" r="6" stroke="#46e891" stroke-width="2"/><path d="M5 27c0-6 8-6 11-6s11 0 11 6" stroke="#46e891" stroke-width="2" fill="none"/></svg>
+            </div>
+            <h2>Jugadores</h2>
+            <p>Descubre el ranking, perfiles y estadísticas de los jugadores.</p>
+        </a>
+        <a href="{% url 'pages_list' %}" class="padel-card">
+            <div class="icon-circle">
+                <!-- News SVG -->
+                <svg width="38" height="38" viewBox="0 0 32 32" fill="none"><rect x="5" y="7" width="22" height="18" rx="2" stroke="#46e891" stroke-width="2"/><rect x="9" y="11" width="10" height="2" rx="1" fill="#46e891"/><rect x="9" y="15" width="14" height="2" rx="1" fill="#46e891"/><rect x="9" y="19" width="7" height="2" rx="1" fill="#46e891"/></svg>
+            </div>
+            <h2>Noticias & Blog</h2>
+            <p>Lee las últimas novedades, consejos y entrevistas de pádel.</p>
+        </a>
+        <a href="{% url 'about' %}" class="padel-card">
+            <div class="icon-circle">
+                <!-- Info SVG -->
+                <svg width="38" height="38" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#46e891" stroke-width="2"/><path d="M16 12v8" stroke="#46e891" stroke-width="2"/><circle cx="16" cy="9" r="1" fill="#46e891"/></svg>
+            </div>
+            <h2>Sobre la comunidad</h2>
+            <p>Conoce quiénes somos y cómo sumarte a la pasión por el pádel.</p>
+        </a>
+    </div>
+</div>
+{% endblock %}

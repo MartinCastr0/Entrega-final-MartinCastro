@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Jugadores | Pádel</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-logo-nav">
+            <a href="{% url 'home' %}" class="header-logo-link">
+                <img src="{% static 'img/logo_1.webp' %}" alt="Logo Pádel" class="header-logo-img">
+                <span class="header-title">Listado de Jugadores</span>
+            </a>
+            <nav class="header-nav">
+                <a href="{% url 'home' %}">Inicio</a>
+                <a href="{% url 'jugadores_list' %}">Jugadores</a>
+                <a href="{% url 'torneos_list' %}">Torneos</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h1>Jugadores</h1>
+        <a href="{% url 'crear_jugador' %}" class="boton">Agregar nuevo jugador</a>
+
+        <div class="jugadores-grid">
+            {% for jugador in jugadores %}
+            <div class="jugador-card">
+                {% if jugador.foto %}
+                    <img src="{{ jugador.foto.url }}" alt="{{ jugador.nombre }}">
+                {% else %}
+                    <img src="{% static 'img/user_placeholder.png' %}" alt="Sin Foto">
+                {% endif %}
+                <div class="jugador-info">
+                    <h3>#{{ jugador.ranking }} - {{ jugador.nombre }}</h3>
+                    <p><b>Club:</b> {{ jugador.club }}</p>
+                </div>
+            </div>
+            {% empty %}
+                <p>No hay jugadores registrados.</p>
+            {% endfor %}
+        </div>
+
+        <a href="{% url 'home' %}" class="boton" style="margin-top:24px;">Volver al inicio</a>
+    </main>
+
+    <footer>
+        <div class="footer-padel">
+            <span>&copy; {{ year|default:"2025" }} Pádel - Ranking de Jugadores</span>
+        </div>
+    </footer>
+</body>
+</html>

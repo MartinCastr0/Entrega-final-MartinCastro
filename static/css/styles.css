@@ -1,146 +1,325 @@
+/* ====== GLOBAL ====== */
 body {
-    font-family: Arial, sans-serif;
-    background: #f8f9fa;
+    background: #111418;
+    color: #eee;
+    font-family: 'Segoe UI', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    color: #222;
+    min-height: 100vh;
 }
-
-nav {
-    background: #343a40;
-    padding: 0.5em 0;
-}
-
-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    background: #343a40;
-}
-
-nav ul li {
-    margin: 0 1em;
-}
-
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 0.5em 1em;
-    border-radius: 4px;
-    transition: background 0.2s;
-    display: block;
-}
-
-nav ul li a:hover,
-nav ul li a.active {
-    background: #495057;
-}
-
-main {
-    max-width: 800px;
-    margin: 2em auto;
-    background: #fff;
-    padding: 2em;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-
-h1, h2, h3 {
-    color: #343a40;
-}
-
-button, input[type="submit"] {
-    background: #343a40;
-    color: #fff;
-    border: none;
-    padding: 0.5em 1em;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background 0.2s;
-}
-
-button:hover, input[type="submit"]:hover {
-    background: #495057;
-}
-
-form {
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
-
-input, textarea, select {
-    width: 100%;
-    padding: 0.5em;
-    margin-top: 0.2em;
-    margin-bottom: 1em;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.alert {
-    padding: 1em;
-    background: #ffeeba;
-    border: 1px solid #ffc107;
-    border-radius: 4px;
-    color: #856404;
-    margin-bottom: 1em;
-}
-.alert.success {
-    background: #d4edda;
-    border-color: #c3e6cb;
-    color: #155724;
-}
-.alert.error {
-    background: #f8d7da;
-    border-color: #f5c6cb;
-    color: #721c24;
-}
-
-/* Imagen de perfil circular */
-header img {
-    display: block;
-    margin: 1.5em auto 1em auto;
-    width: 260px;
-    height: 260px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 6px solid #343a40;
-    background: #fff;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-}
-
-header {
-    text-align: left;
-    max-width: 800px;
-    margin: 0 auto 2em auto;
-    padding-top: 2em;
-}
-
-/* Responsive nav para móviles */
-@media (max-width: 700px) {
-    nav ul {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    nav ul li {
-        margin: 0.2em 0;
-    }
-    main {
-        padding: 1em;
-    }
-    header img {
-        width: 120px;
-        height: 120px;
-    }
-}
-
 a {
+    color: #46e891;
+    text-decoration: none;
     transition: color 0.2s;
 }
 a:hover {
-    color: #007bff;
+    color: #2affb3;
+}
+
+/* ====== HEADER ====== */
+.main-header {
+    background: #191e22;
+    padding: 0.5em 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 4px 20px #0008;
+}
+.header-logo-nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1em;
+    padding: 0 2em;
+}
+.header-logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 0.8em;
+}
+.header-logo-img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background: #232c34;
+    box-shadow: 0 2px 8px #0005;
+    border: 2.5px solid #46e891;
+}
+.header-title {
+    font-size: 1.7em;
+    font-weight: 700;
+    color: #46e891;
+    letter-spacing: 1.5px;
+    text-shadow: 0 2px 10px #0007;
+}
+.header-nav {
+    display: flex;
+    gap: 1.5em;
+}
+.header-nav a {
+    color: #eee;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.13em;
+    padding: 7px 13px;
+    border-radius: 8px;
+    transition: background 0.18s, color 0.18s;
+}
+.header-nav a:hover {
+    background: #222a30;
+    color: #46e891;
+}
+@media (max-width: 720px) {
+    .header-logo-nav { flex-direction: column; gap: 0.2em; align-items: flex-start; }
+    .header-title { font-size: 1.2em; }
+    .header-nav { gap: 0.8em; flex-wrap: wrap; }
+}
+
+/* ====== MAIN CONTENT (GENERAL) ====== */
+main {
+    max-width: 1200px;
+    margin: 2em auto;
+    background: #181d23;
+    padding: 2.5em 2em;
+    border-radius: 18px;
+    box-shadow: 0 3px 12px #0003;
+    min-height: 60vh;
+}
+h1, h2, h3 {
+    color: #46e891;
+    margin-bottom: .7em;
+}
+h2 { border-bottom: 2px solid #46e891; padding-bottom: .2em; }
+a.boton, .boton, .boton-secundario {
+    display: inline-block;
+    padding: 0.6em 1.3em;
+    border-radius: 9px;
+    border: none;
+    background: #46e891;
+    color: #111418;
+    font-weight: bold;
+    text-decoration: none;
+    margin-bottom: 1em;
+    transition: background .2s, color .2s;
+    cursor: pointer;
+}
+.boton:hover { background: #2affb3; color: #191e22; }
+.boton-secundario {
+    background: #191e22;
+    color: #46e891;
+    border: 1px solid #46e891;
+}
+.formulario input, .formulario select, .formulario textarea {
+    padding: .5em;
+    font-size: 1em;
+    width: 100%;
+    margin-bottom: 1em;
+    border-radius: 6px;
+    border: 1px solid #46e891;
+    background: #232c34;
+    color: #eee;
+}
+.formulario button {
+    margin-top: 1em;
+}
+
+/* ====== JUGADORES Y TORNEOS ====== */
+.jugadores-grid, .torneos-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2em;
+    justify-content: flex-start;
+}
+
+.jugador-card, .torneo-card {
+    background: #232c34;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px #0005;
+    padding: 1.2em 1.2em 1.4em 1.2em;
+    max-width: 240px;
+    min-width: 180px;
+    text-align: center;
+    position: relative;
+    border: 3px solid #46e891;
+    color: #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.18s;
+}
+
+.jugador-card:hover, .torneo-card:hover {
+    transform: translateY(-7px) scale(1.04);
+    box-shadow: 0 8px 30px #111b;
+    border-color: #2affb3;
+}
+
+.jugador-card img {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 50%;
+    margin-bottom: .7em;
+    border: 3px solid #46e891;
+    background: #181d23;
+    box-shadow: 0 0 0 5px #232c34;
+    display: block;
+}
+
+.jugador-info h3 {
+    margin: .3em 0 .5em 0;
+    font-size: 1.08em;
+    color: #46e891;
+    font-weight: bold;
+}
+
+.jugador-info p {
+    color: #b9bcc8;
+    font-size: 1em;
+    margin: 0;
+}
+.jugador-info b {
+    color: #fff;
+}
+
+/* ====== TORNEOS ====== */
+.torneo-card {
+    min-width: 230px;
+    max-width: 270px;
+    margin-bottom: 1em;
+}
+.torneo-card h3 {
+    margin-top: 0;
+}
+.torneo-card details summary {
+    cursor: pointer;
+    color: #46e891;
+    font-weight: bold;
+    margin-bottom: .3em;
+}
+
+/* ====== HOME/PORTADA ====== */
+.home-dark-container {
+    text-align: center;
+    padding: 2.5em 1em 2em 1em;
+}
+.home-dark-container h1 {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: .4em;
+    color: #fff;
+}
+.home-subtitle {
+    color: #b9bcc8;
+    font-size: 1.15em;
+    margin-bottom: 2.5em;
+}
+.padel-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2.4em;
+    justify-content: center;
+    align-items: stretch;
+    margin: 0 auto;
+    max-width: 1000px;
+}
+.padel-card {
+    background: #161b21;
+    border-radius: 18px;
+    box-shadow: 0 2px 24px #0008;
+    padding: 2.1em 1.1em 1.2em 1.1em;
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    border: 1.8px solid #23282e;
+    min-height: 250px;
+}
+.padel-card:hover {
+    background: #232c34;
+    color: #46e891;
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 6px 30px #0f0f0f;
+    border-color: #46e891;
+}
+.icon-circle {
+    background: #232c34;
+    border-radius: 50%;
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.1em;
+    box-shadow: 0 2px 12px #1a1a1a;
+    transition: background 0.2s;
+}
+.padel-card:hover .icon-circle {
+    background: #1e573a;
+}
+.padel-card h2 {
+    font-size: 1.25em;
+    margin: 0 0 .5em 0;
+    color: #fff;
+    font-weight: bold;
+}
+.padel-card p {
+    color: #b9bcc8;
+    font-size: 1.05em;
+    margin: 0;
+}
+@media (max-width: 680px) {
+    .padel-sections { grid-template-columns: 1fr; }
+    .padel-card { min-height: 0; }
+}
+
+/* ====== FOOTER ====== */
+footer {
+    margin-top: 2em;
+    font-size: 1em;
+    background: #191e22;
+    color: #eee;
+    text-align: center;
+    padding: 1.4em 0 0.6em 0;
+    border-radius: 0 0 12px 12px;
+}
+.footer-padel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .8em;
+    margin-bottom: .4em;
+}
+.footer-padel a {
+    color: #46e891;
+    text-decoration: underline;
+}
+
+/* ====== SCROLLBAR ====== */
+::-webkit-scrollbar { width: 9px; background: #232c34; }
+::-webkit-scrollbar-thumb { background: #46e891; border-radius: 5px; }
+
+/* ====== RESPONSIVE CARDS ====== */
+@media (max-width: 1100px) {
+    .jugadores-grid, .torneos-grid {
+        gap: 1.2em;
+        justify-content: center;
+    }
+}
+@media (max-width: 800px) {
+    .jugadores-grid, .torneos-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    .jugador-card, .torneo-card {
+        max-width: 95vw;
+        min-width: 0;
+    }
 }

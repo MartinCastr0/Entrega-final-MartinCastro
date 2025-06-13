@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Torneos{% endblock %}
+{% block content %}
+<h2>Torneos</h2>
+<a href="{% url 'crear_torneo' %}">Agregar nuevo torneo</a>
+
+<ul>
+  {% for torneo in torneos %}
+    <li>
+      <br>
+      {{ torneo.nombre }} - {{ torneo.fecha }} - {{ torneo.lugar }}
+      Fecha de creación: {{ torneo.fecha_creacion|date:"d/m/Y H:i" }}
+      <br>
+      Ganador:
+      {% if torneo.ganador %}
+        {{ torneo.ganador.jugador1.nombre }} y {{ torneo.ganador.jugador2.nombre }}
+      {% else %}
+        No hay ganador.
+      {% endif %}
+      {% if torneo.jugadores.all|length > 0 %}
+        <br>Jugadores:
+        <ul>
+          {% for jugador in torneo.jugadores.all %}
+            <li>{{ jugador.nombre }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </li>
+  {% empty %}
+    <li>No hay torneos cargados.</li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'home' %}" class="boton" style="margin-top:24px;">Volver al inicio</a>
+
+{% endblock %}

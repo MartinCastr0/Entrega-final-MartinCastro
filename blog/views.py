@@ -2,13 +2,25 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from .models import Autor, Categoria, Entrada
-from .forms import AutorForm, CategoriaForm, EntradaForm, BuscarEntradaForm
+from .models import Autor, Categoria, Entrada, Jugador, Torneo
+from .forms import AutorForm, CategoriaForm, EntradaForm, BuscarEntradaForm, JugadorForm, TorneoForm
 
 # === Vistas Home y utilitarias ===
 
 def index(request):
-    return render(request, 'blog/index.html')
+    torneos = Torneo.objects.all().order_by('-fecha')[:3]
+    jugadores = Jugador.objects.all().order_by('ranking')[:5]
+    return render(request, 'blog/index.html', {'torneos': torneos, 'jugadores': jugadores})
+def crear_torneo(request):
+    if request.method == 'POST':
+        form = TorneoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('torneos')
+    else:
+        form = TorneoForm()
+    return render(request, 'blog/crear_torneo.html', {'form': form})
+
 
 def crear_autor(request):
     if request.method == 'POST':
@@ -50,6 +62,42 @@ def buscar_entrada(request):
     else:
         form = BuscarEntradaForm()
     return render(request, 'blog/buscar_entrada.html', {'form': form, 'entradas': entradas})
+
+# === Vistas para Jugadores y Torneos ===
+
+def jugadores_list(request):
+    jugadores = Jugador.objects.all().order_by('ranking')
+    return render(request, 'blog/jugadores_list.html', {'jugadores': jugadores})
+
+@login_required
+def crear_jugador(request):
+    if request.method == 'POST':
+        form = JugadorForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('jugadores_list')
+    else:
+        form = JugadorForm()
+    return render(request, 'blog/crear_jugador.html', {'form': form})
+
+def torneos_list(request):
+    torneos = Torneo.objects.all().order_by('-fecha')
+    return render(request, 'blog/torneos_list.html', {'torneos': torneos})
+
+@login_required
+def crear_torneo(request):
+    if request.method == 'POST':
+        form = TorneoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('torneos_list')
+    else:
+        form = TorneoForm()
+    return render(request, 'blog/crear_torneo.html', {'form': form})
+
+def torneo_detail(request, pk):
+    torneo = get_object_or_404(Torneo, pk=pk)
+    return render(request, 'blog/torneo_detail.html', {'torneo': torneo})
 
 # === CBVs para Pages (Entradas) ===
 

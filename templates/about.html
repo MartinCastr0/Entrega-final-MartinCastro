@@ -1,5 +1,22 @@
-{% extends 'base.html' %}
-{% block content %}
-<h1>Acerca de mí</h1>
-<p>Mi nombre es Martín Castro...</p>
-{% endblock %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Acerca de mí</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <main style="padding: 40px 20px;">
+        <h1 style="color: #45ff99;">Acerca de mí</h1>
+        <p style="color: #f1f1c1; font-size: 1.2em; margin-top: 16px;">
+            ¡Hola! Soy Martín Castro, un apasionado del pádel .<br>
+            Actualmente estoy desarrollando esta página para compartir información sobre torneos, jugadores y novedades del mundo del pádel.<br>
+            Me encanta aprender cosas nuevas y mejorar mis habilidades cada día.<br><br>
+            Si quieres contactarme, puedes hacerlo a través de mi correo: <b>martincastrocf@email.com</b> o seguirme en mis redes sociales @martincastr0.<br>
+            ¡Gracias por visitar el sitio!
+        </p>
+        <a href="{% url 'home' %}" class="boton" style="margin-top:24px;">Volver al inicio</a>
+    </main>
+</body>
+</html>

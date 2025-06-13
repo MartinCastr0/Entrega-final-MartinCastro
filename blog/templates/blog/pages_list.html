@@ -1,14 +1,52 @@
-<{% extends 'base.html' %}
-{% block content %}
-<h1>Listado de Páginas</h1>
-<ul>
-    {% for page in pages %}
-    <h2>{{ page.titulo }}</h2>
-    <p>{{ page.subtitulo }}</p>
-    <a href="{% url 'page_detail' page.pk %}">Leer más</a>
-{% empty %}
-    <p>No hay páginas aún.</p>
-{% endfor %}
-</ul>
-<a href="{% url 'page_create' %}">Crear nueva página</a>
-{% endblock %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Páginas</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-logo-nav">
+            <a href="{% url 'home' %}" class="header-logo-link">
+                <img src="{% static 'img/logo_1.webp' %}" alt="Logo Pádel" class="header-logo-img">
+                <span class="header-title">Listado de Páginas</span>
+            </a>
+            <nav class="header-nav">
+                <a href="{% url 'home' %}">Inicio</a>
+                <a href="{% url 'jugadores_list' %}">Jugadores</a>
+                <a href="{% url 'torneos_list' %}">Torneos</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h1>Listado de Páginas</h1>
+        <a href="{% url 'page_create' %}" class="boton">Crear nueva página</a>
+
+        {% if pages %}
+            <div class="pages-list">
+                {% for page in pages %}
+                <div class="page-card">
+                    <h2>{{ page.titulo }}</h2>
+                    <p>{{ page.contenido|default:"Sin descripción." }}</p>
+                    <a href="{% url 'page_detail' page.id %}" class="boton-secundario">Leer más</a>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No hay páginas creadas.</p>
+        {% endif %}
+
+        <a href="{% url 'home' %}" class="boton">Volver al inicio</a>
+    </main>
+
+    <footer>
+        <div class="footer-padel">
+            <span>&copy; {{ year|default:"2025" }} Pádel - Listado de Páginas</span>
+        </div>
+    </footer>
+</body>
+</html>
