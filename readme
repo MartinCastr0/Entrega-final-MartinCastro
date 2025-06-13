@@ -1,57 +1,14 @@
-# Mi Blog Django 
+# Proyecto Pádel
 
-¡Bienvenido/a! Este es un proyecto de blog hecho con Django como parte de mi aprendizaje en python.  
-La idea es tener un sistema donde se puedan crear y administrar entradas de blog, autores y categorías, además de permitir el registro y login de usuarios.
+Este proyecto fue desarrollado por mí, Martín Castro, como parte de mi aprendizaje en Django. La aplicación permite gestionar jugadores, torneos y páginas informativas relacionadas con el mundo del pádel. Está pensado para ser simple, práctico y fácil de usar.
 
----
+## Funcionalidades principales
 
-## Instalación 🛠️
+- Listado y creación de jugadores y torneos.
+- Visualización y edición de páginas informativas.
+- Interfaz amigable con navegación sencilla.
 
-1. Cloná el repo:
-   ```bash
-   git clone https://github.com/MartinCastr0/TuPrimeraPagina-Castro
-   cd TU_REPO
-   ```
-
-2. Instalá las dependencias (te recomiendo usar un entorno virtual):
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. Hacé las migraciones para la base de datos:
-   ```bash
-   python manage.py migrate
-   ```
-
----
-
-## Uso 🚀
-
-Para correr la app, ejecutá:
-```bash
-python manage.py runserver
-```
-Después abrí tu navegador en [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
-
----
-
-## ¿Qué podés hacer? 📋
-
-- Registrar usuarios y loguearte.
-- Crear, editar y borrar entradas del blog.
-- Buscar entradas por título.
-- Cargar autores y categorías.
-- Administrar todo desde el panel de Django admin.
-
----
-
-## Estructura del proyecto 📂
-
-- `blog/`: App principal del blog (entradas, autores, etc).
-- `accounts/`: App para gestión de usuarios.
-- `media/`: Acá se guardan los archivos subidos (no se sube al repo).
-- `db.sqlite3`: Base de datos local (NO está en el repo por seguridad).
-
+¡Gracias por visitar el repositorio!
 
 
 
