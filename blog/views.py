@@ -1,6 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from .models import Autor, Categoria, Entrada
 from .forms import AutorForm, CategoriaForm, EntradaForm, BuscarEntradaForm
+
+# === Vistas Home y utilitarias ===
 
 def index(request):
     return render(request, 'blog/index.html')
@@ -46,16 +51,35 @@ def buscar_entrada(request):
         form = BuscarEntradaForm()
     return render(request, 'blog/buscar_entrada.html', {'form': form, 'entradas': entradas})
 
-# === VISTAS CRUD para pages (Entrada) ===
+# === CBVs para Pages (Entradas) ===
+
+class PageListView(ListView):
+    model = Entrada
+    template_name = 'blog/pages_list.html'
+    context_object_name = 'pages'
+
+class PageDetailView(DetailView):
+    model = Entrada
+    template_name = 'blog/page_detail.html'
+    context_object_name = 'page'
+
+class PageCreateView(LoginRequiredMixin, CreateView):
+    model = Entrada
+    template_name = 'blog/page_form.html'
+    form_class = EntradaForm
+    success_url = '/pages/'
+
+# === FBVs para Pages (Entradas) ===
 
 def pages_list(request):
     pages = Entrada.objects.all()
-    return render(request, 'blog/pages/pages_list.html', {'pages': pages})
+    return render(request, 'blog/pages_list.html', {'pages': pages})
 
 def page_detail(request, pk):
     page = get_object_or_404(Entrada, pk=pk)
-    return render(request, 'blog/pages/page_detail.html', {'page': page})
+    return render(request, 'blog/page_detail.html', {'page': page})
 
+@login_required
 def page_create(request):
     if request.method == 'POST':
         form = EntradaForm(request.POST)
@@ -64,8 +88,9 @@ def page_create(request):
             return redirect('page_detail', pk=page.pk)
     else:
         form = EntradaForm()
-    return render(request, 'blog/pages/page_form.html', {'form': form, 'page': None})
+    return render(request, 'blog/page_form.html', {'form': form, 'page': None})
 
+@login_required
 def page_update(request, pk):
     page = get_object_or_404(Entrada, pk=pk)
     if request.method == 'POST':
@@ -75,17 +100,19 @@ def page_update(request, pk):
             return redirect('page_detail', pk=page.pk)
     else:
         form = EntradaForm(instance=page)
-    return render(request, 'blog/pages/page_form.html', {'form': form, 'page': page})
+    return render(request, 'blog/page_form.html', {'form': form, 'page': page})
 
+@login_required
 def page_delete(request, pk):
     page = get_object_or_404(Entrada, pk=pk)
     if request.method == 'POST':
         page.delete()
         return redirect('pages_list')
-    return render(request, 'blog/pages/page_confirm_delete.html', {'page': page})
+    return render(request, 'blog/page_confirm_delete.html', {'page': page})
 
-# === VISTAS EXTRA PARA ENTRADAS ===
+# === FBV adicionales para Entradas ===
 
+@login_required
 def editar_entrada(request, pk):
     entrada = get_object_or_404(Entrada, pk=pk)
     if request.method == 'POST':
@@ -97,9 +124,10 @@ def editar_entrada(request, pk):
         form = EntradaForm(instance=entrada)
     return render(request, 'blog/crear_entrada.html', {'form': form, 'entrada': entrada})
 
+@login_required
 def borrar_entrada(request, pk):
     entrada = get_object_or_404(Entrada, pk=pk)
     if request.method == 'POST':
         entrada.delete()
         return redirect('pages_list')
-    return render(request, 'blog/pages/page_confirm_delete.html', {'page': entrada})
+    return render(request, 'blog/page_confirm_delete.html', {'page': entrada})
